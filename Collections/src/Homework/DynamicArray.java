@@ -1,13 +1,14 @@
 package Homework;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class DynamicArray<T> {
     private Object[] data;
     private int size = 0;
 
     public DynamicArray() {
-        this.data= new Object[10];
+        this.data = new Object[10];
     }
 
     public DynamicArray(int size) {
@@ -21,20 +22,6 @@ public class DynamicArray<T> {
         this.size = var.length;
     }
 
-//    public void print() {
-//
-//        StringBuilder print = new StringBuilder();
-//        for (Object i : data) {
-//            if (i == null) {
-//                print.append("[");
-//            }
-//            if (i != null) {
-//                System.out.printf("%s ", i);
-//            }
-//        }
-//        System.out.println();
-//    }
-
     public String toString() {
         return Arrays.toString(data);
     }
@@ -44,14 +31,12 @@ public class DynamicArray<T> {
             System.out.println((String) null);
         } else {
             StringBuilder print = new StringBuilder();
-            print.append("[ ");
-            for (int i = 0; i < data.length; i++) {
-                if (data[i] == null) {
-                    print.append("");
-                } else if (i == data.length - 1) {
-                    print.append(data[i]).append(" ");
-                } else if (data[i] != null && i != data.length - 1) {
-                    print.append(data[i]).append(", ");
+            print.append("[");
+            print.append(data[0]);
+            for (int i = 1; i < data.length; i++) {
+                if (data[i] != null) {
+                    print.append(", ");
+                    print.append(data[i]);
                 }
             }
             print.append("]");
@@ -69,24 +54,22 @@ public class DynamicArray<T> {
         }
         data[size] = item;
         size++;
-
-
     }
 
-    public void addAt(T item, int position) {
+    public void addAt(T item, int index) {
         if (data.length <= size) {
             Object[] temp = data;
             data = new Object[size * 2];
 
-            for (int i = 0; i < temp.length ; i++) {
-                if (i >= position) {
+            for (int i = 0; i < temp.length; i++) {
+                if (i >= index) {
                     data[i + 1] = temp[i];
 
                 } else {
                     data[i] = temp[i];
                 }
             }
-            data[position] = item;
+            data[index] = item;
             size++;
         }
     }
@@ -103,7 +86,109 @@ public class DynamicArray<T> {
         return size;
     }
 
+    public boolean contains(T val) {
 
+        boolean result = false;
+
+        for (Object xxx : data) {
+            if (xxx == val) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public void remove(int index) {
+        Object[] temp = data;
+        data = new Object[data.length];
+
+        for (int i = 0; i < data.length - 1; i++) {
+            if (i >= index) {
+                data[i] = temp[i + 1];
+            } else {
+                data[i] = temp[i];
+            }
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DynamicArray<?> array = (DynamicArray<?>) o;
+        return Objects.deepEquals(data, array.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(data);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

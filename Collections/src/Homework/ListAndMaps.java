@@ -5,7 +5,6 @@ import Utils.Scanner;
 
 import java.time.DayOfWeek;
 import java.time.Month;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class ListAndMaps {
@@ -20,8 +19,8 @@ public class ListAndMaps {
         if (amount > 0) {
             List<Integer> list = new ArrayList<>();
 
-            for (int i = 0; i < amount; i++) {
-                list.add(i + 1);
+            for (int i = 1; i < amount; i++) {
+                list.add(i);
             }
             list.forEach(System.out::println);
 
@@ -203,7 +202,7 @@ public class ListAndMaps {
     public static void sortMapsList() {
         Map<String, String> map1 = new HashMap<>();
         Map<String, String> map2 = new HashMap<>();
-        List<Map<String, String>> list = new ArrayList<>();
+        List<Map<String, String>> list = List.of(map1,map2);
         List<String> valuesList = new ArrayList<>();
 
         for (int i = 1; i < Month.values().length + 1; i++) {
@@ -212,9 +211,6 @@ public class ListAndMaps {
         for (int i = 1; i < DayOfWeek.values().length + 1; i++) {
             map2.put(Integer.toString(i), DayOfWeek.of(i).toString());
         }
-
-        list.add(map1);
-        list.add(map2);
 
         for (Map<String, String> i : list) {
             valuesList.addAll(i.values());
