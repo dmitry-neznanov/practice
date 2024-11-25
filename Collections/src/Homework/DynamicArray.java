@@ -56,7 +56,7 @@ public class DynamicArray<T> {
         size++;
     }
 
-    public void addAt(T item, int index) {
+    public void add(T item, int index) {
         if (data.length <= size) {
             Object[] temp = data;
             data = new Object[size * 2];
@@ -125,70 +125,3 @@ public class DynamicArray<T> {
         return Arrays.hashCode(data);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

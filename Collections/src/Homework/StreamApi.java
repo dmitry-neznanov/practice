@@ -2,7 +2,6 @@ package Homework;
 
 import Utils.Generator;
 import Utils.Scanner;
-
 import java.time.DayOfWeek;
 import java.time.Month;
 import java.util.*;
@@ -21,10 +20,10 @@ public class StreamApi {
         int amount = Scanner.getInputInteger();
 
         if (amount > 0) {
-            List<Integer> list = IntStream.
-                    range(1, amount + 1)
-                    .boxed().toList();
-            list.forEach(System.out::println);
+            IntStream
+                    .range(1, amount + 1)
+                    .boxed()
+                    .forEach(System.out::println);
 
         } else {
             System.out.println("Число в неправильном диапазоне.Попробуйте еще раз");
@@ -42,14 +41,10 @@ public class StreamApi {
         list.forEach(e -> System.out.print(e + " "));
         System.out.println();
 
-        List<Integer> list2 = new ArrayList<>();
-
-        IntStream.
-                range(0, list.size())
-                .filter(i -> i % 2 != 0)
-                .forEach(i -> list2.add(list.get(i)));
+        List<Integer> list2 = list.stream().filter(i -> i % 2 != 0).toList();
 
         list2.forEach(e -> System.out.print(e + " "));
+
     }
 
     // 3.	В списке строк подсчитайте строки, состоящие только из уникальных символов, игнорируя пустые строки.
@@ -62,12 +57,9 @@ public class StreamApi {
         list.forEach(i -> System.out.print(i + " "));
         System.out.println();
 
-
-        long result = list.stream()
+        System.out.println("Уникальных строк в листе - " + list.stream()
                 .filter(e -> e.chars().distinct().count() == e.length())
-                .count();
-
-        System.out.println("Уникальных строк в листе - " + result);
+                .count());
     }
 
     // 4.	Отсортируйте список строк по длине по убыванию.
@@ -104,8 +96,8 @@ public class StreamApi {
     public static void mapGen() {
         Map<Month, Integer> map = Arrays.stream(Month.values()).
                 collect(Collectors.toMap(
-                        key -> key,
-                        val -> val.name().length()
+                        monthName -> monthName,
+                        monthName -> monthName.name().length()
                 ));
         System.out.println(map);
     }

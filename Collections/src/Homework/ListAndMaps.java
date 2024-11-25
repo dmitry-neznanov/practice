@@ -2,10 +2,10 @@ package Homework;
 
 import Utils.Generator;
 import Utils.Scanner;
-
 import java.time.DayOfWeek;
 import java.time.Month;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ListAndMaps {
 
@@ -84,13 +84,11 @@ public class ListAndMaps {
             if (str.strip().matches("[А-Яа-я-A-Za-z]+")) {
 
                 char[] charArray = str.toCharArray();
-                Set<Character> set = new HashSet<>();
+                Set<Character> collect = str.chars()
+                        .mapToObj(c -> (char) c)
+                        .collect(Collectors.toSet());
 
-                for (char xxx : charArray) {
-                    set.add(xxx);
-                }
-
-                if (set.size() == charArray.length) {
+                if (collect.size() == charArray.length) {
                     count++;
                 }
             }
@@ -130,20 +128,13 @@ public class ListAndMaps {
         list.forEach(i -> System.out.print(i + " "));
         System.out.println();
 
-        boolean hasNegative = false;
-
         for (Integer i : list) {
             if (i < 0) {
-                hasNegative = true;
-                break;
+                System.out.println("В списке есть отрицательные числа");
+                return;
             }
         }
-
-        if (hasNegative) {
-            System.out.println("В списке есть отрицательные числа");
-        } else {
-            System.out.println("В списке нет отрицательных чисел");
-        }
+        System.out.println("В списке нет отрицательных чисел");
     }
 
     // 7.   Сгенерируйте Map<Month, Integer>, в которой ключами будут элементы
@@ -202,7 +193,7 @@ public class ListAndMaps {
     public static void sortMapsList() {
         Map<String, String> map1 = new HashMap<>();
         Map<String, String> map2 = new HashMap<>();
-        List<Map<String, String>> list = List.of(map1,map2);
+        List<Map<String, String>> list = List.of(map1, map2);
         List<String> valuesList = new ArrayList<>();
 
         for (int i = 1; i < Month.values().length + 1; i++) {
@@ -226,25 +217,3 @@ public class ListAndMaps {
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
