@@ -19,5 +19,7 @@ public class Main {
         } else {
             System.out.println("Пути не существует");
         }
+
+        //C:\Users\пк\Downloads
     }
 }

@@ -13,7 +13,8 @@ public class DiskAnalyzer implements Serializable {
                 break;
 
             case 2:
-                write(sortMap(filesByWeight(dir)));
+                System.out.println("Укажите размер списка");
+                write(filesByWeight(dir,new Scanner(System.in).nextInt()));
                 break;
 
             case 3:
@@ -41,7 +42,7 @@ public class DiskAnalyzer implements Serializable {
                     if (file.isDirectory()) {
                         list.addAll(containsMaxLetterS(file));
                     } else {
-                        String fileName = file.getName();
+                        String fileName = file.getName().toLowerCase();
 
                         if (fileName.contains("s")) {
                             long currentCount = fileName.chars()
@@ -66,6 +67,26 @@ public class DiskAnalyzer implements Serializable {
 
     // 2.	Top-5 файлов с самым большим размером
 
+    public HashMap<Long, String> filesByWeight(File dir, int mapSize) {
+
+        HashMap<Long, String> map = new HashMap<>();
+
+        if (dir.isDirectory()) {
+            File[] files = dir.listFiles();
+
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isDirectory()) {
+                        map.putAll(filesByWeight(file));
+                    } else {
+                        map.put(file.length(), file.getName());
+                    }
+                }
+            }
+        }
+        return getSortedMapWithFixedSize(map,mapSize);
+    }
+
     public HashMap<Long, String> filesByWeight(File dir) {
 
         HashMap<Long, String> map = new HashMap<>();
@@ -86,14 +107,14 @@ public class DiskAnalyzer implements Serializable {
         return map;
     }
 
-    public HashMap<Long, String> sortMap(HashMap<Long, String> map) {
+    public HashMap<Long, String> getSortedMapWithFixedSize(HashMap<Long, String> map, int mapSize) {
         TreeMap<Long, String> sortedMap = new TreeMap<>(Comparator.reverseOrder());
         HashMap<Long, String> topFiles = new HashMap<>();
 
         sortedMap.putAll(map);
 
         sortedMap.entrySet().stream()
-                .limit(5)
+                .limit(mapSize)
                 .forEach(itm -> topFiles.put(itm.getKey(), itm.getValue()));
 
         return topFiles;
